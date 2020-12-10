@@ -3,8 +3,12 @@ import {connect} from 'react-redux';
 import {getCard} from '../actions/actions'
 
 
-const PokeCards=({pulledCards, getCard})=> {
+const PokeCards=({pulledCards, getCard, isPulling})=> {
     
+    if (isPulling) {
+        return <h3>Pulling Card From Booster Pack ...</h3>
+    }
+
     const handleClick = () => {
         getCard();
     }
@@ -25,7 +29,8 @@ const PokeCards=({pulledCards, getCard})=> {
 
 const mapStateToProps = state => {
     return {
-        pulledCards: state.pulledCards
+        pulledCards: state.pulledCards,
+        isPulling: state.isPulling
     }
 }
 
