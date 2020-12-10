@@ -3,17 +3,30 @@ import {connect} from 'react-redux';
 import {getCard} from '../actions/actions'
 
 
-const PokeCards=()=> {
-
-    // useEffect(() => {
-    //     getCard()
-    // }, []);
+const PokeCards=({pulledCards, getCard})=> {
+    
+    const handleClick = () => {
+        getCard();
+    }
 
     return(
         <div>
-           {/* <h2> Your Pull:</h2> */}
+           <button onClick={handleClick}>Pull A Card</button>
+               <div>
+                    {pulledCards.map(card => {
+                        return(
+                            <img  style={{width:'20%'}} src={card} alt=''/>
+                        )
+                    })}
+                </div> 
         </div>
     )
 }
 
-export default PokeCards;
+const mapStateToProps = state => {
+    return {
+        pulledCards: state.pulledCards
+    }
+}
+
+export default connect(mapStateToProps, {getCard})(PokeCards);
